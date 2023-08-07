@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    volumes:
+      - .:/{{cookiecutter.project_name}}/
+      - /var/local/{{cookiecutter.project_name}}/logs/:/var/local/{{cookiecutter.project_name}}/logs/
+      - /var/local/{{cookiecutter.project_name}}/uploads/:/var/local/{{cookiecutter.project_name}}/uploads/
+
+    ports:
+      - {{cookiecutter.port}}:{{cookiecutter.port}}
+      - {{cookiecutter.debugpy_port}}:{{cookiecutter.debugpy_port}}
+    environment:
+      - FLASK_APP=/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/app.py
+      - FLASK_DEBUG=1
+      - FLASK_ENV=development
+      - PYTHONPATH=/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}

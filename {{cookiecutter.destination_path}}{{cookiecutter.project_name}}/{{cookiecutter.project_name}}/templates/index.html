@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>project2 Web App</title>
+    <!-- Bootstrap CSS library for styling and UI components -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- jQuery library: required for Bootstrap's JavaScript plugins -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+
+    <!-- Popper.js library: required for some of Bootstrap's JavaScript features like dropdowns and tooltips -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+
+    <!-- Bootstrap's JavaScript library: provides interactive UI components -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>{{cookiecutter.project_name}} Web App</h1>
+    </div>
+
+    <div class="container">
+
+        {% raw %} {% if errors %} {% endraw %}
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Spreadsheet Errors:</h4>
+            <ul>
+                {% raw %} {% for error in errors %} {% endraw %}
+                <li>{% raw %} {{ error }} {% endraw %} </li>
+                {% raw %} {% endfor %} {% endraw %}
+            </ul>
+        </div>
+        {% raw %} {% endif %} {% endraw %}
+
+        {% raw %} {% if file_errors %} {% endraw %}
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">File Errors:</h4>
+            <ul>
+                {% raw %} {% for field, errors in file_errors.items() %} {% endraw %}
+                {% raw %} {% for error in errors %} {% endraw %}
+                <li>{% raw %} {{ error }} {% endraw %} </li>
+                {% raw %} {% endfor %} {% endraw %}
+                {% raw %} {% endfor %} {% endraw %}
+            </ul>
+        </div>
+        {% raw %} {% endif %} {% endraw %}
+
+        {% raw %} {% if backend_state == "initial" %} {% endraw %}
+        <div class="alert alert-dark" role="alert">
+            <h4 class="alert-heading">Welcome to {{cookiecutter.project_name}}</h4>
+            <p>Please select the files for your analysis below, then click
+                the "Run {{cookiecutter.project_name}}" button.</p>
+        </div>
+        <div class="container">
+            <h4>{{cookiecutter.project_name}} File Upload</h4>
+            <form
+                action="{% raw %} {{ url_for('{% endraw %}{{cookiecutter.project_name}}{% raw %}.form') }} {% endraw %} "
+                method="post" enctype="multipart/form-data">
+                {% raw %} {{ form.hidden_tag() }} {% endraw %}
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        {% raw %} {{ form.single_file.label }} {% endraw %} <br>
+                        {% raw %} {{ form.single_file(class="form-control-file") }} {% endraw %}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {% raw %} {{ form.multiple_array_of_files.label }} {% endraw %} <br>
+                        {% raw %} {{ form.multiple_array_of_files(class="form-control-file", multiple=true) }} {% endraw
+                        %}
+                    </div>
+                </div>
+                {% raw %} {{ form.submit(class="btn btn-primary btn-lg btn-block") }} {% endraw %}
+            </form>
+        </div>
+
+        {% raw %} {%elif backend_state == "started" %} {% endraw %}
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">{{cookiecutter.project_name}} Analysis Complete</h4>
+            <p>You submitted the following single file: </p>
+            <p style="color:blue;">{% raw %} {{ single_file_name }} {% endraw %} </p>
+            <p>You submitted the following multiple files:</p>
+            <p style="color:blue;">{% raw %} {{ multiple_array_of_files_names }} {% endraw %} </p>
+            <hr>
+            <h4>The following output can be downloaded to your computer using the button below:</h4>
+            <p style="color:blue;">{% raw %} {{ report_name }} {% endraw %} </p>
+            <br>
+            <a class="btn btn-success"
+                href="{% raw %} {{url_for('{% endraw %}{{cookiecutter.project_name}}{% raw %}.download')}} {% endraw %} ">Download</a>
+            <hr>
+            <p class="mb-0">If you have any issues with this tool please raise a ticket with Genome Support.</p>
+        </div>
+    </div>
+
+    {% raw %} {%elif backend_state == "finished" %} {% endraw %}
+
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Analysis Completed!</h4>
+        <p>The report can be downloaded to your computer using the button below.</p>
+        <br>
+        <a class="btn btn-success"
+            href="{% raw %} {{url_for('{% endraw %}{{cookiecutter.project_name}}{% raw %}.download')}} {% endraw %} ">Download
+            Report</a>
+        <hr>
+        <p class="mb-0">If you have any issues with this tool please raise a ticket with Genome Support.</p>
+    </div>
+
+    {% raw %} {%elif backend_state == "failed" %} {% endraw %}
+
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">WARNING!</h4>
+        <p>Backend has failed with the following error:</p>
+        <hr>
+        <p class="mb-0"> ERROR: <br> If you require any help please raise a ticket with Genome Support.
+        </p>
+    </div>
+    {% raw %} {%endif %} {% endraw %}
+    </div>
+
+    {% raw %} {% block scripts %} {% endraw %}
+    <script>
+        console.log("Script is running");
+        function getFileExtension(filename) {
+            return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+        }
+
+        function validateFileType(inputElement, allowedExtensions) {
+            const files = inputElement.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const extension = getFileExtension(file.name).toLowerCase();
+                if (!allowedExtensions.includes(extension)) {
+                    alert(`Invalid file type for '${file.name}'. Allowed types are: ${allowedExtensions.join(", ")}`);
+                    inputElement.value = "";
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        document.getElementById("single_file").addEventListener("change", function () {
+            validateFileType(this, ["{{cookiecutter.single_file_allowable_extension}}"]); // TODO Add more file extensions here i.e. ["xlsm", "xlsx"]
+        });
+
+        document.getElementById("multiple_array_of_files").addEventListener("change", function () {
+            validateFileType(this, ["{{cookiecutter.multi_file_allowable_extension}}"]); // TODO Add more file extensions here i.e. ["xlsm", "xlsx"]
+        });
+    </script>
+    {% raw %} {% endblock %} {% endraw %}
+
+
+
+</body>
