@@ -2,6 +2,10 @@ import os
 import zipfile
 from datetime import datetime
 
+img_versioned = os.getenv(
+    "IMG_VERSIONED"
+)  # Automatically set in the Dockerfile when deployed - can be added to reports for audit traceability
+
 
 def run_backend(single_file, array_of_files, output_directory):
     # Ensure the output directory exists, if not, create it

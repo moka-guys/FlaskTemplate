@@ -4,7 +4,11 @@ FROM python:3.10.6-slim-buster
 # set working directory
 WORKDIR /usr/local/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}
 
+# Accept the commit hash as a build argument so user can add to HTML reports - not set in test mode
+ARG IMG_VERSIONED="VERSION_NOT_SET"
+
 # set environment variables
+ENV IMG_VERSIONED ${IMG_VERSIONED}
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 #ENV FLASK_DEBUG 1

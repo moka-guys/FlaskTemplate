@@ -22,6 +22,37 @@ To debug your Dockerized Flask application live using Visual Studio Code, follow
 
 The Flask application will now be accessible at `http://localhost:{{cookiecutter.port}}/{{cookiecutter.project_name}}`
 
+## Compiling Sphinx Documentation
+
+```bash
+# From within the local repo run the following commands.
+
+# Auto generate documentation from docstrings
+sphinx-apidoc -f -o docs/apidocs snp_haplotyper/
+
+# Build documentation from source files
+(cd docs && make clean) # Optional - removes any cached html files
+sphinx-build -b html docs/source docs/build
+```
+
+To view the output open index.html in the build folder.
+
+## Compiling Sphinx Documentation
+
+```bash
+# From within the local repo run the following commands.
+
+# Auto generate documentation from docstrings
+sphinx-apidoc -f -o docs/apidocs snp_haplotyper/
+
+# Build documentation from source files
+(cd docs && make clean) # Optional - removes any cached html files
+sphinx-build -b html docs/source docs/build
+```
+
+To view the output open index.html in the build folder.
+
+
 ## Contributing
 
 If you find any issues or have suggestions for improvement, feel free to submit a pull request or open an issue in the project's repository.
