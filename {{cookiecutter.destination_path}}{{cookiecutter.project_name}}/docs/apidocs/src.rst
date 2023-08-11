@@ -1,4 +1,4 @@
-snp_haplotyper package
+{{cookiecutter.project_name}} package
 ===========
 
 Subpackages
@@ -7,12 +7,12 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   snp_haplotyper
+   {{cookiecutter.project_name}}
 
 Module contents
 ---------------
 
-.. automodule:: snp_haplotyper
+.. automodule:: {{cookiecutter.project_name}}
    :members:
    :undoc-members:
    :show-inheritance:

@@ -121,7 +121,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-# .env this file adds snp_haplotyper to PYTHONPATH so that pytest works in vs code https://code.visualstudio.com/docs/python/environments - Use of the PYTHONPATH variable
+# .env this file adds source code to PYTHONPATH so that pytest works in vs code https://code.visualstudio.com/docs/python/environments - Use of the PYTHONPATH variable
 .venv
 env/
 venv/
@@ -185,12 +185,3 @@ cython_debug/
 # Ignore code-workspaces
 *.code-workspace
 *.pyc 
-training_data/
-output/
-test_data/*.txt
-test_data/*.xlsx
-test_data/*.xlsm
-test_data/*.json
-# Include these files in the repo, even though the folder is blocked above
-!test_data/embryo_validation_data.json
-!test_data/informative_snp_validation.json

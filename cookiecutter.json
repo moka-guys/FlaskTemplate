@@ -1,6 +1,7 @@
 {
     "project_name": "project",
     "destination_path": "./",
+    "project_maintainer": "Graeme Smith",
     "project_description": "default_description",
     "dockerhub_registry": "seglh",
     "port": 5000,

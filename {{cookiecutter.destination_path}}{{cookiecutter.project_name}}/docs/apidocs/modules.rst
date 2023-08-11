@@ -1,7 +1,7 @@
-snp_haplotyper
+{{cookiecutter.project_name}}
 ==============
 
 .. toctree::
    :maxdepth: 4
 
-   snp_haplotyper
+   {{cookiecutter.project_name}}

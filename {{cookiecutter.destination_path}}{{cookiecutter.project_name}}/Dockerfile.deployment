@@ -10,8 +10,8 @@ ENV PYTHONUNBUFFERED 1
 #ENV FLASK_DEBUG 1
 #ENV FLASK_ENV development
 ENV SCRIPT_NAME=/{{cookiecutter.project_name}}
-ENV FLASK_APP /usr/local/{{cookiecutter.project_name}}/snp_haplotyper/app.py
-ENV PYTHONPATH /usr/local/{{cookiecutter.project_name}}/snp_haplotyper
+ENV FLASK_APP /usr/local/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/app.py
+ENV PYTHONPATH /usr/local/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}
 ENV UPLOAD_FOLDER /var/local/{{cookiecutter.project_name}}/uploads
 ENV SESSION_FILE_DIR /var/local/{{cookiecutter.project_name}}/flask_sessions
 # only for development
@@ -31,10 +31,10 @@ USER $CONTAINER_USER_ID
 RUN apt-get update && apt-get install -y wkhtmltopdf
 
 # add app
-COPY ["snp_haplotyper", "requirements.txt", "tests", "wsgi.py", \
+COPY ["{{cookiecutter.project_name}}", "requirements.txt", "tests", "wsgi.py", \
     "pytest.ini", ".coverage", "docs", "gunicorn.conf.py", "./"]
 
-COPY ["test_data/AffyID2rsid.txt", "../test_data/AffyID2rsid.txt"]
+COPY ["test_data/", "../test_data/"]
 
 EXPOSE {{cookiecutter.port}}
 

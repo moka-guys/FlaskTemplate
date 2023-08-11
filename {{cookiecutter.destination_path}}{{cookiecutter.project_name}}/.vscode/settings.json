@@ -6,7 +6,7 @@
     "python.testing.pytestEnabled": true,
     "python.envFile": "${workspaceFolder}/.env",
     "python.analysis.extraPaths": [
-        "./snp_haplotyper"
+        "./{{cookiecutter.project_name}}"
     ],
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"

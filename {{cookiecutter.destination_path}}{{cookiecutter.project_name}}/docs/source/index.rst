@@ -1,4 +1,4 @@
-Welcome to BASHer's documentation!
+Welcome to {{cookiecutter.project_name}}'s documentation!
 ==========================================
 
 .. toctree::
@@ -9,7 +9,6 @@ Welcome to BASHer's documentation!
    usage.md
    development.md
    deployment.md
-   internal_logic.md
    changelog.md
    test.md
 

@@ -23,14 +23,14 @@ basedir = os.path.abspath(
     )
 )
 sys.path.insert(0, basedir)
-sys.path.insert(0, os.path.abspath("../../snp_haplotyper"))
+sys.path.insert(0, os.path.abspath("../../{{cookiecutter.project_name}}"))
 sys.path.insert(0, os.path.abspath("../../docs/source"))
 
 # -- Project information -----------------------------------------------------
 
-project = "BASHer"
-copyright = "2022, Graeme Smith"
-author = "Graeme Smith"
+project = "{{cookie.cutter.project_name}}"
+copyright = "{{cookie.cutter.project_maintainer}}"
+author = "{{cookie.cutter.project_maintainer}}"
 
 # The full version, including alpha/beta/rc tags
 release = "0.1"
