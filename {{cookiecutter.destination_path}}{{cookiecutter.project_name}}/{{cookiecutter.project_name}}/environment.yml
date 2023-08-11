@@ -320,4 +320,4 @@ dependencies:
     - wtforms==3.0.1
     - yarg==0.1.9
     - zopfli==0.2.2
-prefix: /home/graeme/miniconda3/envs/python3.10env
+prefix: /home/$USER/miniconda3/envs/python3.10env
