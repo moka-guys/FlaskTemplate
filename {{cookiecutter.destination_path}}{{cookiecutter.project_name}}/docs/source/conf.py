@@ -28,9 +28,9 @@ sys.path.insert(0, os.path.abspath("../../docs/source"))
 
 # -- Project information -----------------------------------------------------
 
-project = "{{cookie.cutter.project_name}}"
-copyright = "{{cookie.cutter.project_maintainer}}"
-author = "{{cookie.cutter.project_maintainer}}"
+project = "{{cookiecutter.project_name}}"
+copyright = "{{cookiecutter.project_maintainer}}"
+author = "{{cookiecutter.project_maintainer}}"
 
 # The full version, including alpha/beta/rc tags
 release = "0.1"
