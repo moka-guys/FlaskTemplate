@@ -1,0 +1,29 @@
+{
+    "project_name": "project",
+    "destination_path": "./",
+    "project_maintainer": "Graeme Smith",
+    "project_description": "default_description",
+    "dockerhub_registry": "seglh",
+    "port": 5000,
+    "debugpy_port": 5678,
+    "single_file_allowable_extension": [
+        "bam",
+        "csv",
+        "fastq",
+        "tsv",
+        "txt",
+        "vcf",
+        "xlsm",
+        "xlsx"
+    ],
+    "multi_file_allowable_extension": [
+        "bam",
+        "csv",
+        "fastq",
+        "tsv",
+        "txt",
+        "vcf",
+        "xlsm",
+        "xlsx"
+    ]
+}

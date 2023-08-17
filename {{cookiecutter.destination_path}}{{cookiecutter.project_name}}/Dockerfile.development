@@ -1,0 +1,39 @@
+# pull official base image
+FROM python:3.10.6-slim-buster
+
+# set working directory
+WORKDIR /{{cookiecutter.project_name}}/{{cookiecutter.project_name}}
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV FLASK_DEBUG 1
+ENV FLASK_APP=/{{cookiecutter.project_name}}/app.py
+ENV PYTHONPATH=/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}
+ENV SESSION_FILE_DIR /var/local/{{cookiecutter.project_name}}/flask_sessions
+ENV SCRIPT_NAME={{cookiecutter.project_name}}
+ENV UPLOAD_FOLDER /var/local/{{cookiecutter.project_name}}/uploads
+ENV FLASK_DEBUG=1 
+# only for development
+
+# add and install requirements
+COPY ./requirements.txt .
+RUN pip3 install -r requirements.txt
+USER 0 
+RUN mkdir -p /var/local/{{cookiecutter.project_name}}/logs/
+RUN mkdir -p /var/local/{{cookiecutter.project_name}}/uploads/
+RUN mkdir -p /var/local/{{cookiecutter.project_name}}/flask_sessions/
+RUN chmod 777 /var/local/{{cookiecutter.project_name}}/logs/
+RUN chmod 777 /var/local/{{cookiecutter.project_name}}/uploads/
+RUN chmod 777 /var/local/{{cookiecutter.project_name}}/flask_sessions/
+
+USER $CONTAINER_USER_ID
+
+RUN pip install debugpy
+
+# add app
+COPY . .
+
+# run server
+CMD python -m debugpy --wait-for-client --listen 0.0.0.0:{{cookiecutter.debugpy_port}} -m flask run --host=0.0.0.0
+
